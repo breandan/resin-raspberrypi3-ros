@@ -11,7 +11,7 @@ ENV INITSYSTEM="on" \
 
 # Variables for ROS distribution, configuration, and relevant directories
 ENV ROS_DISTRO="indigo" \
-    ROS_CONFIG="ros_comm"
+    ROS_CONFIG="ros_base"
 ENV CATKIN_WS="/usr/catkin_ws" \
     ROS_INSTALL_DIR="/opt/ros/$ROS_DISTRO"
 
@@ -33,8 +33,8 @@ WORKDIR $CATKIN_WS
 RUN apt-get install -yq --no-install-recommends \
     python-yaml python-mock python-empy python-netifaces python-numpy \
     python-imaging python-nose python-coverage python-paramiko \
-    cmake \
-    libboost-all-dev libtinyxml-dev sbcl liblz4-dev libapr1-dev \
+    cmake uuid-dev sbcl \
+    libboost-all-dev libtinyxml-dev liblz4-dev libapr1-dev libpoco-dev \
     libconsole-bridge-dev libaprutil1-dev libgtest-dev liblog4cxx10-dev
 
 RUN rosinstall_generator $ROS_CONFIG --rosdistro $ROS_DISTRO \
