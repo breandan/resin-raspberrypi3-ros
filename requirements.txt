@@ -1,9 +1,0 @@
-# ROS-related tools
-rosdep
-rosinstall_generator
-wstool
-rosinstall
-catkin_tools
-
-# ROS dependencies
-rospkg
