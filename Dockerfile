@@ -30,9 +30,9 @@ RUN apt-get update \
     && apt-get install -y --fix-missing ros-indigo-ros-base \
     && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update \
-    && apt-get install -y --fix-missing ros-indigo-navigation \
-    && rm -rf /var/lib/apt/lists/*
+# RUN apt-get update \
+#     && apt-get install -y --fix-missing ros-indigo-navigation \
+#     && rm -rf /var/lib/apt/lists/*
 
 COPY ./ros_entrypoint.sh .
 
