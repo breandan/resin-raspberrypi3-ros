@@ -12,27 +12,26 @@ ENV INITSYSTEM="on" \
 RUN echo "deb http://packages.ros.org/ros/ubuntu trusty main" > /etc/apt/sources.list.d/ros-latest.list \
     && apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net --recv-key 0xB01FA116
 
-RUN apt-get update \
-    && apt-get install -yq --no-install-recommends \
+RUN apt-get clean \
+    && apt-get update \
+    && apt-get install -yq --no-install-recommends --fix-missing \
       locales locales-all \
       python-dev python-pip \
-      python-rosdep python-rosinstall python-vcstools \
-      python-catkin-tools \
-    && rm -rf /var/lib/apt/lists/*
+      python-rosdep python-catkin-tools \
+      ros-indigo-navigation ros-indigo-robot-localization ros-indigo-roslint \
+      ros-indigo-hector-trajectory-server python-enum \
+      python-rpi.gpio \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN ln -s /usr/lib/arm-linux-gnueabihf/liblog4cxx.so /usr/lib/
+
+RUN pip install platformio
 
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 
 RUN rosdep init \
     && rosdep update
-
-RUN apt-get update \
-    && apt-get install -y --fix-missing ros-indigo-ros-base \
-    && rm -rf /var/lib/apt/lists/*
-
-# RUN apt-get update \
-#     && apt-get install -y --fix-missing ros-indigo-navigation \
-#     && rm -rf /var/lib/apt/lists/*
 
 COPY ./ros_entrypoint.sh .
 
